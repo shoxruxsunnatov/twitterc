@@ -1,0 +1,38 @@
+.edit-profile-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+input[type="text"],
+textarea {
+  padding: 10px;
+  border: 0.5px solid darkgray;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background: transparent;
+  color: white;
+  resize: none;
+}
+
+button[type="submit"] {
+  background-color: #1da1f2;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+textarea:focus-visible {
+  border: 1px solid #1da1f2;
+}

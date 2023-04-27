@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>{{ account.fullname }} (@{{ account.user.username }}) / Twitter</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
+	<link rel="icon" type="image/x-icon" href="https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png">
+</head>
+<body>
+   
+	<div class="nav" id="nav">
+		<ul class="navbar-nav">
+			<li><a href="#">
+				<i class="fa fa-twitter" style="font-size: 33px;"></i><span class="link-text close" onclick="closeNav()">X</span>
+			</a></li>
+			<li><a href="{% url 'main:home' %}"><i class="fa fa-home"></i><span class="link-text">Home</span></a></li>
+			<li><a onclick="alert('We are still working on it...')"><i class="fa fa-rocket"></i><span>Explore</span class="link-text"></a></li>
+			<li><a onclick="alert('We are still working on it...')"><i class="fa fa-bell"></i><span class="link-text">Notifications</span></a></li>
+			<li><a onclick="alert('We are still working on it...')"><i class="fa fa-twitter"></i><span class="link-text">Messages</span></a></li>
+			<li><a onclick="alert('We are still working on it...')"><i class="fa fa-bookmark"></i><span class="link-text">Bookmarks</span></a></li>
+			<li><a onclick="alert('We are still working on it...')"><i class="fa fa-list"></i><span class="link-text">Lists</span></a></li>
+			<li><a href="{% url 'account:profile' %}"><i class="fa fa-user"></i><span class="link-text">Profile</span></a></li>
+			<li><a onclick="alert('We are still working on it...')"><i class="fa fa-arrow-up"></i><span class="link-text">More</span></a></li>
+			<li class="link-tweets"><a href="{% url 'main:home' %}"><i class="fa fa-arrow-up" style="opacity: 0;"></i><span class="link-text" style="font-size: 0.8em; text-align: center;">Tweet</span></a></li>
+			<li><a href="{% url 'account:logout' %}"><i class="fa fa-arrow-up" style="opacity: 0;"></i></i><span class="link-text" style="font-size:0.8em">Logout</span></a></li>
+		</ul>		
+	</div>
+
+
+
+ <div class="second" id="second">
+
+		 <div class="second-tweet">
+		 	  <div class="tweet-header" style="height: 3.5em;backdrop-filter: blur(10px);background: transparent;padding: 10px;">
+        		<h4 style="font-size: 1.2em;"><b style="display: flex;">
+					<a href="{% url 'main:home' %}">
+					<svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px;height:22px;margin-right:1.7em;margin-top: 0.9em;flex:1;margin-left:0.4em"><g><path style="filter: brightness(100%) saturate(0%) invert(100%);" d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2H7.414z"></path></g></svg>
+
+					</a>
+					<span style="padding-top: 10px;">
+						{{ account.fullname }}<br>
+						<span class="side-name" style="font-size: 0.6em;font-family: inherit;margin-left: 0;">{{ tweetcount }} Tweets </span>
+					</span>
+					
+				</b></h4>
+				<button class="btns" onclick="openNav()">☰ </button>
+     		 </div>
+
+     	
+     		 <div class="add-tweet" id="header_image" style="height: 12em;padding: 0;">
+				<img style="width: 100%; height: 100%;margin: 0;" src="{% if account.header_image %}{{ account.header_image.url }}{% else %}https://cc-prod.scene7.com/is/image/CCProdAuthor/Photography%20Page%20JDI_marquee_tb?$pjpeg$&jpegSize=200&wid=1199{% endif %}">
+     		 </div>
+     		
+			<div class="profile-edit-div">
+				<span class="add-tweet-image profile-image-div">
+					<a><img src="{% if account.profile_image %}{{ account.profile_image.url }}{% else %}https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs-PGo1B0hrjWowbqSwAeIhX2_5-K_Z16S0w7N3pByi47-_4TWBLRZ01mLjdsMrNfjhJ8&usqp=CAU{% endif %}" class="rounded-circle profile-image-div" width="60px" height="60px" ></a>
+				</span>
+				<div class="edit-profile-btn-div">
+					<a onclick="alert('We are still working on it...')">
+						<button class="edit-profile-btn" id="tweet-btn">Follow</button>
+					</a>
+				</div>
+				<div class="tweet-content" style="margin-left: 0;">
+					<b style="font-size: 1.2em;">{{ account.fullname }}</b>
+					<br>
+					<span class="side-name">@{{ account.user.username }}</span>
+					<p class="profile-bio">{{ account.bio }}</p>
+				</div>
+					
+			</div>
+		
+			<img height="28px" width="28px" id="loading" style="display: block;margin: 10px auto;" src="{% static 'images/waiting-icon-gif.jpg' %}">
+
+
+			<div id="main-feed"></div>
+				
+     		</div>
+		 	
+
+		 
+
+		
+
+		 <div class="second-trend">
+			<div class="search">
+				<form action="{% url 'main:search' %}" id="search-form">
+					<i class="fa fa-search searchicon" onclick="document.getElementById('search-form').submit()"></i>
+					<input type="text" name="q" class="special-search" style="padding-left: 30px;padding-right: 12px;font-family: sans-serif;font-size: 0.9em;padding-top: 10px;" id="search-bar" required placeholder="Search Twitter">
+				</form>
+			</div>
+		 	<div class="trend">
+   				<h4 class="h4-title" style="font-size:larger;margin-left: 10px;"><b>Trends for you</b></h4>
+            <div class="trend-div">
+   			 	<div class="left-20"> 
+    			<a href="#"><small class="trend-title"><!-- text--></small></a>
+      			<a href="#">
+       			<p class="trend-list">Noting for now</p>
+     		    </a>
+				</div>
+            </div>
+   			</div>
+		    <div class="follow">
+    			<h4 class="h4-title" style="font-size:larger;margin-left: 10px;"><b>Who to follow?</b></h4>
+     
+    			<span class="trendlist">
+	   				<span><a href='#'>
+						<!-- <img src="dabi.jpg" class="rounded-circle -div" width="50px" height="50px"></a></span> -->
+		   				<span class="left-20">
+		     				<a href='#'>
+		       					<p class="user-list"><!-- text--><span class="side-name"><!-- text--></span></p>
+		      				</a>
+		           			<span class="follow-line">Noting for now</span>
+		    			</span>
+				</span>
+      		</div>
+		 </div>
+	
+		 <div class="bottom-menu">
+			<ul>
+				<li><i class="fa fa-home" style="color: var(--red);"></i></li>
+				<li><i class="fa fa-search"></i></li>
+				<li><i class="fa fa-user"></i></li>
+				<li><i class="fa fa-bell"></i></li>
+			</ul>
+		</div>
+
+
+</div> 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+ 
+<script src="{% static 'home.js' %}"></script>
+<script src="{% static 'js/account_detail.js' %}"></script>
+<script>loadTweets('{{ account.id }}')</script>
+
+</body>
+</html>
