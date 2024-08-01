@@ -1,78 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Flamenco&family=Montserrat&display=swap");
 
-.tweet-image {
-  border-radius: 5%;
-}
-.profile-image-div {
-  width: 140px;
-  height: 140px;
-  position: absolute;
-  top: 5.5em;
-}
-.profile-edit-div {
-  display: block;
-  padding: 1rem;
-} 
-.edit-profile-btn-div {
-  height: 4em;
-  width: 100%;
-}
-.tweet-text {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-style: normal;
-  font-size: 15px;
-}
-.profile-bio {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  margin-top: 1em;
-}
-.edit-profile-btn {
-  transition-duration: 0.1s;
-  border: 0.001px solid lightgray;
-  background: none;
-  float: right;
-  padding: 5px 15px 5px 15px;
-  font-weight: bold;
-  line-height: 0em;
-  border-radius: 30px;
-  color: white;
-  height: 2.5em;
-  line-height: 0em;
-}
-.edit-profile-btn:hover{
-  transition-duration: 0.1s;
-  background: #181919;
-}
-.textarea-cl {
-  font-family: "TwitterChirp",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  font-size: 20px;
-  overflow: hidden;
-}
-.twitter-icon {
-  font-size: 30px;
-}
-body {
-  margin-left: 5%;
-  margin-right: 5%;
-}
-.special-search {
-  padding-left: 30px;
-  padding-right: 12px;
-  font-family: sans-serif;
-  font-size: 0.9em;
-  padding-top: 10px;
-}
 :root {
-  --black: black;
+  --black: #15202b;
   --white: white;
   --text: white;
   --flamenco: "Flamenco", cursive;
   --monst: "Montserrat", sans-serif;
-  --trend: rgb(22 24 28);
+  --trend: rgb(25, 39, 52);
   --light-gray: lightgray;
   --border: rgb(62, 64, 82);
   --info: lightgray;
-  --red: #00acee;
+  --red: #e0245e;
   --text-color: var(--text);
   --background: var(--black);
 }
@@ -247,10 +185,12 @@ body {
   width: 100%;
   margin: auto;
   padding: 1rem;
+  border-bottom: 9px solid #50626e;
 }
 .add-tweet-input {
   position: relative;
   width: 100%;
+  margin-left: 20px;
 }
 .add-icon {
   display: flex;
@@ -306,7 +246,6 @@ body {
 }
 .side-name {
   color: gray;
-  font-size: 15px;
 }
 .second-trend {
   padding-top: 6px;
@@ -316,7 +255,7 @@ body {
   width: 40%;
 }
 #search-bar {
-  margin-left: 48px;
+  margin-left: 20px;
   background: var(--trend);
   border-radius: 25px;
   border: none;
@@ -389,9 +328,6 @@ body {
   display: none;
 }
 @media only screen and (max-width: 1150px) {
-  #search_bar {
-    margin-left: 35px;
-  }
   .nav {
     width: 100px;
     z-index: 1;

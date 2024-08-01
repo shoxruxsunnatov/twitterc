@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from main.utils import generate_filename
 
 
 class Account(models.Model):
@@ -27,3 +28,12 @@ class Tweet(models.Model):
         
     def __str__(self):
         return f'{self.account.user.username} {self.date}'
+
+
+class TweetImage(models.Model):
+    tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE, related_name='tweet')
+    image = models.ImageField(upload_to=generate_filename)
+
+
+    def __str__(self):
+        return self.image.name

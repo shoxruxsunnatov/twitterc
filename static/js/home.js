@@ -23,16 +23,24 @@ async function loadTweets() {
         } else {
             date = now.getMinutes() - tweetdate.getMinutes() + 'm'
         }
+
+        let image = ''
+        if (tweets[i].tweet_image){
+            image = `<img src="${tweets[i].tweet_image}" width="100%" height="auto" class="tweet-image">`
+        }
+
         let tweet = `
-        <div class="actual-tweet">
-            <span class="add-tweet-image">
-                <a href="/user/${tweets[i].account.username}/"><img src="${tweets[i].account.profile_image}" class="rounded-circle profile-image" width="50px" height="50px" ></a>
-            </span>
-            <div class="tweet-content">
-                <a href="/user/${tweets[i].account.username}/">${tweets[i].account.fullname} <span class="side-name">@${tweets[i].account.username} · ${date}</span></a>
-                <p class="tweet-text">${tweets[i].text}</p>
+            <div class="actual-tweet" onclick="location.href='/user/${tweets[i].account.username}/status/${tweets[i].id}/'">
+                <span class="add-tweet-image">
+                    <a href="/user/${tweets[i].account.username}/"><img src="${tweets[i].account.profile_image}" class="rounded-circle profile-image" width="50px" height="50px" ></a>
+                </span>
+                <div class="tweet-content">
+                    <a href="/user/${tweets[i].account.username}/">${tweets[i].account.fullname} <span class="side-name">@${tweets[i].account.username} · ${date}</span></a>
+                    <p class="tweet-text">${tweets[i].text}</p>
+                    ${image}
+                </div>
             </div>
-        </div>`
+        `
         mainfeed.innerHTML += tweet
     }
 
@@ -40,3 +48,9 @@ async function loadTweets() {
 
 }
 loadTweets()
+
+let tweet_image = document.getElementById('tweet-image')
+let tweet_image_filename = document.getElementById('tweet-image-filename')
+tweet_image.addEventListener('change', function(){
+    tweet_image_filename.innerText = tweet_image.files[0].name
+})

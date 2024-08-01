@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
-from main.models import Tweet, Account
+from main.models import Tweet, Account, TweetImage
 
 
 @method_decorator(login_required(login_url='main:welcome'), name='dispatch')
@@ -40,6 +40,10 @@ class TweetsBase(TemplateView):
                 'profile_image': tweet.account.profile_image.url if tweet.account.profile_image else self.default_img,
             }
 
+            image = TweetImage.objects.filter(tweet=tweet).first()
+            if image:
+                obj['tweet_image'] = image.image.url
+                
             data.append(obj)
 
         return JsonResponse(data, safe=False)

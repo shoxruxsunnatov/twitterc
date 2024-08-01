@@ -46,7 +46,7 @@
 				<a href="#"><img src="{% if account.profile_image %}{{ account.profile_image.url }}{% else %}https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs-PGo1B0hrjWowbqSwAeIhX2_5-K_Z16S0w7N3pByi47-_4TWBLRZ01mLjdsMrNfjhJ8&usqp=CAU{% endif %}" class="rounded-circle profile-image" width="50px" height="50px" ></a>
 			</span>
 			<div class="add-tweet-input">
-				<form method="post" action="{% url 'main:addtweet' %}">
+				<form method="post" action="{% url 'main:addtweet' %}" enctype="multipart/form-data">
 					{% csrf_token %}
 					<div>
 						<textarea type="text" id="textarea-control" style="color: white;resize: none;" maxlength="280" class="textarea-cl" rows="1" cols="50" name="text"  placeholder ="What's happening?" required></textarea>
@@ -54,11 +54,13 @@
 						<div>
 							<ul class="add-tweet-icon">
 							<div class="add-icon">
-								<li class="side-icon"><i class="fa fa-image"></i></li>
-								<li class="side-icon"><i class="fa fa-play"></i></li>
-								<li class="side-icon"><i class="fa fa-bus"></i></li>
-								<li class="side-icon"><i class="fa fa-calendar"></i></li>
-								<li class="side-icon"><i class="fa fa-globe"></i></li>
+								<li class="side-icon">
+									<label for="tweet-image">
+										<i class="fa fa-image"></i>
+										<span id="tweet-image-filename" style="font-size: 0.7em;"></span>
+									</label>
+								</li>
+								<input type="file" name="tweet-image" id="tweet-image" accept="image/*" style="display: none;">
 							</div>
 							
 								<button class="link-tweet" style="color: white;border: 0;height: 2.5em;line-height: 0em;" id="tweet-btn">Tweet</button>

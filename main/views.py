@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from main.models import Account, Tweet
+from main.models import Account, Tweet, TweetImage
 from account.views import ProfileView
 
 
@@ -50,6 +50,7 @@ class AddTweet(TemplateView):
     
     def post(self, req, *args, **kwargs):
         text = req.POST.get('text')
+        file = req.FILES.get('tweet-image')
 
         if text is not None and 0 < len(text) <= 280:
             account = Account.objects.get(user=req.user)
@@ -57,7 +58,10 @@ class AddTweet(TemplateView):
             tweet = Tweet.objects.create(
                 account=account,
                 text=text
-            ) 
+            )
+
+            if file:
+                TweetImage.objects.create(tweet=tweet, image=file)
 
         return redirect('main:home')
 
@@ -89,3 +93,38 @@ class SearchView(TemplateView):
         context['query'] = self.query
 
         return context
+
+
+class TweetDetailView(TemplateView):
+    template_name = 'main/tweet_detail.html'
+
+    def get(self, req, *args, **kwargs):
+
+        username = kwargs.get('username')
+        tweet_id = kwargs.get('tweet_id')
+
+        user = get_object_or_404(User, username=username)
+        self.account = Account.objects.get(user=user)
+        self.tweet = get_object_or_404(Tweet, id=tweet_id, account=self.account)
+
+        self.image = TweetImage.objects.filter(tweet=self.tweet).first()
+
+        return super().get(req, *args, **kwargs)
+
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context.update(
+            {
+                'tweet': self.tweet,
+                'account': self.account
+            }
+        )
+        if self.image:
+            context['image'] = self.image
+
+        return context
+
+
+
+

@@ -1,0 +1,31 @@
+:root {
+    --brand-color: #1d9bf0;
+    --warm-brand-color: #1984cc;
+    --back: #0f1419;
+    --gray-text: #3c4043;
+    --gray-text-footer: #536471;
+    --soft-gray: #d2e3fc;
+    --soft-gray-bg: rgba(66,133,244,.04);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}

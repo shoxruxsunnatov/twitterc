@@ -17,14 +17,20 @@ async function loadTweets() {
         } else {
             date = now.getMinutes() - tweetdate.getMinutes() + 'm'
         }
+        let image = ''
+        if (tweets[i].tweet_image){
+            image = `<img src="${tweets[i].tweet_image}" width="100%" height="auto" class="tweet-image">`
+        }
+
         let tweet = `
         <div class="actual-tweet">
             <span class="add-tweet-image">
-                <a><img src="${tweets[i].account.profile_image}" class="rounded-circle profile-image" width="50px" height="50px" ></a>
+                <a href="/user/${tweets[i].account.username}/"><img src="${tweets[i].account.profile_image}" class="rounded-circle profile-image" width="50px" height="50px" ></a>
             </span>
             <div class="tweet-content">
-                <a>${tweets[i].account.fullname}</a> <span class="side-name">@${tweets[i].account.username} · ${date}</span>
+                <a href="/user/${tweets[i].account.username}/">${tweets[i].account.fullname} <span class="side-name">@${tweets[i].account.username} · ${date}</span></a>
                 <p class="tweet-text">${tweets[i].text}</p>
+                ${image}
             </div>
         </div>`
         mainfeed.innerHTML += tweet
