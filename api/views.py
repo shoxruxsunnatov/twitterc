@@ -5,7 +5,6 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 
 from main.models import Tweet, Account, TweetImage
 
